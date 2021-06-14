@@ -40,7 +40,7 @@
               </a>
             </div>
             <div class="column is-half">
-              <div class="provider has-radius is-mobile" @click="selectWallet('trust')">
+              <div class="provider has-radius is-mobile" @click="selectWallet('walletconnect')">
                 <img src="@/assets/img/providers/trust.png">
                 TrustWallet
               </div>
