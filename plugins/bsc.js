@@ -12,9 +12,9 @@ const web3 = new Web3()
 web3.setProvider(process.env.NUXT_ENV_BSC_RPC)
 
 const walletProvider = new WalletConnectProvider({
-  chainId: process.env.NUXT_ENV_NETWORK_ID,
+  chainId: process.env.NUXT_ENV_BSC_NETWORK_ID,
   rpc: {
-    3: process.env.NUXT_ENV_BSC_RPC
+    56: process.env.NUXT_ENV_BSC_RPC
   },
   qrcodeModalOptions: {
     mobileLinks: ["metamask", "trust", "rainbow", "argent"]
@@ -40,8 +40,6 @@ export default (context, inject) => {
         currentProvider: null,
         tokenAddress: process.env.NUXT_ENV_TOKEN_ADDRESS,
         vestingAddress: process.env.NUXT_ENV_VESTING_ADDRESS,
-        // vestingABI: JSON.stringify(vestingContract), //stringify it https://docs.ethers.io/v5/api/utils/abi/formats/#abi-formats--object
-        // tokenABI: JSON.parse(tokenContract)
       }
     },
     created() {
@@ -213,7 +211,7 @@ export default (context, inject) => {
 
           this.registerProviderListener(this.walletConnect)
           this.wallet = this.walletConnect.accounts
-          this.updateAccount()
+          // this.updateAccount()
           this.walletConnect.updateRpcUrl(process.env.NUXT_ENV_BSC_NETWORK_ID, process.env.NUXT_ENV_BSC_RPC)
 
         } catch (walletConnectError) {
