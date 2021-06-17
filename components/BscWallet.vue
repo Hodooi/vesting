@@ -40,10 +40,15 @@
               </a>
             </div>
             <div class="column is-half">
-              <div class="provider has-radius is-mobile" @click="selectWallet('walletconnect')">
+              <div v-if="isTrustInstalled" class="provider has-radius is-mobile" @click="selectWallet('trustwallet')">
+                <img src="@/assets/img/providers/trust.png" >
+                TrustWallet
+              </div>
+              <div v-else class="provider has-radius is-mobile" @click="selectWallet('walletconnect')">
                 <img src="@/assets/img/providers/trust.png">
                 TrustWallet
               </div>
+
             </div>
             <div class="column is-half">
               <div class="provider has-radius is-mobile"  @click="selectWallet('walletconnect')">
@@ -71,6 +76,9 @@ export default {
     isMetaMaskInstalled() {
       return Boolean(this.$bsc.metamask && this.$bsc.metamask.isMetaMask)
     },
+    isTrustInstalled() {
+      return Boolean(this.$bsc.metamask && this.$bsc.metamask.isTrust)
+    },
 
     isBinanceInstalled() {
       return Boolean(this.$bsc.binance != null)
@@ -87,6 +95,9 @@ export default {
       this.loading = true
       try {
         switch (provider) {
+          case 'trustwallet':
+            await this.$bsc.onTrustWalletConnect()
+            break
           case 'metamask':
             await this.$bsc.onMetaMaskConnect()
             break

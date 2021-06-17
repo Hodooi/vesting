@@ -175,6 +175,21 @@ export default (context, inject) => {
         this.transaction = null
         this.transactionError = null
       },
+      async onTrustWalletConnect() {
+        try {
+          this.registerProviderListener(this.metamask)
+          this.wallet = await this.currentProvider.request({
+            method: 'eth_requestAccounts'
+          })
+          this.updateAccount()
+          this.checkBscFormat(this.wallet[0])
+        } catch (mmError) {
+          console.error(mmError)
+          if (mmError) {
+            return Promise.reject(mmError)
+          }
+        }
+      },
       async onMetaMaskConnect() {
         try {
           this.registerProviderListener(this.metamask)
